@@ -407,6 +407,7 @@ function xmldb_core_upgrade($oldversion=0) {
     }
 
     if ($oldversion < 2009101600) {
+        require_once(get_config('docroot').'/lib/stringparser_bbcode/lib.php');
         // Remove bbcode formatting from existing feedback
         if ($records = get_records_sql_array("SELECT * FROM {view_feedback} WHERE message LIKE '%[%'", array())) {
             foreach ($records as &$r) {
@@ -3895,6 +3896,17 @@ function xmldb_core_upgrade($oldversion=0) {
         $field = new XMLDBField('sortorder');
         $field->setAttributes(XMLDB_TYPE_INTEGER, 10, null, XMLDB_NOTNULL, null, null, null, 100000, 'category');
         add_field($table, $field);
+    }
+
+    if ($oldversion < 2015020800) {
+        require_once(get_config('docroot').'/lib/stringparser_bbcode/lib.php');
+        // Remove bbcode formatting from existing feedback
+        if ($records = get_records_sql_array("SELECT id, text FROM {blocktype_wall_post} WHERE text LIKE '%[%'", array())) {
+            foreach ($records as &$r) {
+                $r->text = parse_bbcode($r->text);
+                update_record('blocktype_wall_post', $r);
+            }
+        }
     }
 
     return $status;

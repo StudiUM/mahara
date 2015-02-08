@@ -134,10 +134,9 @@ class PluginBlocktypeWall extends SystemBlocktype {
             'jssuccesscallback' => 'wallpost_success',
             'elements' => array(
                 'text' => array(
-                    'type' => 'textarea',
+                    'type' => 'wysiwyg',
                     'title' => get_string('Post', 'blocktype.wall'),
                     'hiddenlabel' => true,
-                    'description' => bbcode_format_post_message(),
                     'rows' => 3,
                     'cols' => 50,
                     'defaultvalue' => '',
