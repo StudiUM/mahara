@@ -32,13 +32,6 @@ set_include_path($CFG->libroot . PATH_SEPARATOR . $CFG->libroot . 'pear/' . PATH
 // Set up error handling
 require('errors.php');
 
-if (!is_readable($CFG->docroot . 'config.php')) {
-    // @todo Later, this will redirect to the installer script. For now, we
-    // just log and exit.
-    log_environ('Not installed! Please create config.php from config-dist.php');
-    exit;
-}
-
 init_performance_info();
 
 // Because the default XML loader is vulnerable to XEE attacks, we're disabling it by default.

@@ -9,6 +9,11 @@
  *
  */
 
+if (!file_exists('./config.php')) {
+    header('Location: install.php');
+    die;
+}
+
 define('INTERNAL', 1);
 define('PUBLIC', 1);
 define('MENUITEM', 'home');
